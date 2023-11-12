@@ -4,16 +4,27 @@
   require './database/database.php';
 
   if (isset($_SESSION['user_id'])) {
-    $records = $conn->prepare('SELECT id_usuario, username, clave FROM usuarios WHERE id_usuario = :Myid');
-    $records->bindParam(':Myid', $_SESSION['user_id']);
-    $records->execute();
-    $results = $records->fetch(PDO::FETCH_ASSOC);
+
+   
+
+    // $records = $conn->prepare('SELECT id_usuario, username, clave FROM usuarios WHERE id_usuario = :Myid');
+    // $records->bindParam(':Myid', $_SESSION['user_id']);
+    // $records->execute();
+    // $results = $records->fetch(PDO::FETCH_ASSOC);
+    // if (count($results) > 0) {
+    //   $user = $results;
+    // }
 
     $user = null;
 
-    if (count($results) > 0) {
-      $user = $results;
+    $my_id = $_SESSION['user_id'];
+    $query = "SELECT id_usuario, username, clave FROM usuarios WHERE id_usuario = '$my_id'";
+    $result = mysqli_query($conn, $query);
+    if (mysqli_num_rows($result) > 0) {
+        $row = mysqli_fetch_assoc($result);
+        $user = $row;
     }
+    
   }
 ?>
 

@@ -3,22 +3,40 @@
   require '../database/database.php';
 
   session_start();
+  $message = '';
 
   if (!empty($_POST['username']) && !empty($_POST['password'])) {
 
-    $records = $conn->prepare('SELECT id_usuario, username, clave FROM usuarios WHERE username = :MyUser');
-    $records->bindParam(':MyUser', $_POST['username']);
-    $records->execute(); # Ejecuto consulta
-    $results = $records->fetch(PDO::FETCH_ASSOC);
+    // $records = $conn->prepare('SELECT id_usuario, username, clave FROM usuarios WHERE username = :MyUser');
+    // $records->bindParam(':MyUser', $_POST['username']);
+    // $records->execute(); # Ejecuto consulta
+    // $results = $records->fetch(PDO::FETCH_ASSOC);
 
-    $message = '';
+    $Mpassword = password_hash($_POST['password'], PASSWORD_BCRYPT);
+    $Myusuario = $_POST['username'];
+    $query = "SELECT id_usuario, username, clave FROM usuarios WHERE username = '$Myusuario'";
+    $result = mysqli_query($conn, $query);
 
-    if (count($results) > 0 && password_verify($_POST['password'], $results['clave'])) {
-      $_SESSION['user_id'] = $results['id_usuario'];
-      header("Location: /crud_app");
+    // if (count($results) > 0 && password_verify($_POST['password'], $results['clave'])) {
+    //   $_SESSION['user_id'] = $results['id_usuario'];
+    //   header("Location: /crud_app");
+    // } else {
+    //   $message = 'Sorry, those credentials do not match';
+    // }
+    if (mysqli_num_rows($result) > 0) {
+      $row = mysqli_fetch_assoc($result);
+      $usuario_valido = $row['username'] == $Myusuario;
+      if ($usuario_valido && password_verify($_POST['password'], $row['clave'])) {
+          $_SESSION['user_id'] = $row['id_usuario'];
+          header("Location: /crud_app");
+      } else {
+          $message = 'Sorry, those credentials do not match';
+      }
     } else {
-      $message = 'Sorry, those credentials do not match';
+        $message = 'Invalid username';
     }
+  }else{
+    $message = 'Campos vacios!';
   }
 
 ?>

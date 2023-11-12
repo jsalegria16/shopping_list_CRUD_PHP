@@ -5,18 +5,33 @@
 
   if (!empty($_POST['username']) && !empty($_POST['password'])) {
     
-    $sql = "INSERT INTO usuarios (username, clave) VALUES (:Myusuario, :Myclave)";
-    $stmt = $conn->prepare($sql);
-    $stmt->bindParam(':Myusuario', $_POST['username']);
-    $password = password_hash($_POST['password'], PASSWORD_BCRYPT);
-    $stmt->bindParam(':Myclave', $password);
+    // $sql = "INSERT INTO usuarios (username, clave) VALUES (:Myusuario, :Myclave)";
+    // $stmt = $conn->prepare($sql);
+    // $stmt->bindParam(':Myusuario', $_POST['username']);
+    // $password = password_hash($_POST['password'], PASSWORD_BCRYPT);
+    // $stmt->bindParam(':Myclave', $password);
 
-    if ($stmt->execute()) {
+    // if ($stmt->execute()) {
+    //   $message = 'Successfully created new user';
+    // } else {
+    //   $message = 'Sorry there must have been an issue creating your account';
+    // }
+
+    $Mpassword = password_hash($_POST['password'], PASSWORD_BCRYPT);
+    $Myusuario = $_POST['username'];
+    $query = "INSERT INTO usuarios (username, clave) VALUES ('$Myusuario','$Mpassword')";
+    $result = mysqli_query($conn, $query);
+    if(!$result) {
+      die("Query Failed.");
+    }else{
       $message = 'Successfully created new user';
-    } else {
-      $message = 'Sorry there must have been an issue creating your account';
     }
+
+
+  }else{
+    $message = 'Campos vacios!';
   }
+
 ?>
 
 
