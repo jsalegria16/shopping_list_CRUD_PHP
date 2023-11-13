@@ -19,7 +19,7 @@
 
       <!-- ADD TASK FORM -->
       <div class="card card-body">
-        <form action="./crud_operations/save_shopping_list.php" method="POST">
+        <form action="./crud_operations/shoppinglist/save_shopping_list.php" method="POST">
           <div class="form-group">
             <input type="text" name="nameSL" class="form-control" placeholder="Nombre Lista de compras" autofocus>
           </div>
@@ -69,11 +69,11 @@
                 <?php echo $row['username']; ?>
               </td>
               <td class='d-flex '>
-                <a href="./crud_operations/edit_shopping_list.php?id_lista_compras=<?php echo $row['id_lista_compras'] ?>"
+                <a href="./crud_operations/shoppinglist/edit_shopping_list.php?id_lista_compras=<?php echo $row['id_lista_compras'] ?>"
                   class="btn btn-secondary btn-sm">
                   <i class="fa-solid fa-pen-to-square fa-2xs"></i>
                 </a>
-                <a href="./crud_operations/delete_shopping_list.php?id_lista_compras=<?php echo $row['id_lista_compras'] ?>"
+                <a href="./crud_operations/shoppinglist/delete_shopping_list.php?id_lista_compras=<?php echo $row['id_lista_compras'] ?>"
                   class="btn btn-danger btn-sm">
                   <i class="fa-sharp fa-solid fa-trash fa-2xs"></i>
                 </a>

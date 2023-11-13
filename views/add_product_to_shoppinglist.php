@@ -1,35 +1,36 @@
+
 <?php
-session_start();
-require '../database/database.php';
+    $shopping_list_slected = '';
+    if (isset($_GET['nombre_lista'])) {
+        $shopping_list_slected = $_GET['nombre_lista'];
+    }
 ?>
 
-<?php include('../partials/header.php') ?>
-
-<nav class="navbar navbar-dark bg-dark">
-    <div class="container">
-        <a class="navbar-brand" href="../index.php">Listas De compras</a>
-        <a class="navbar-brand" href="products_by_shoppinglist.php">Products by shopping list</a>
-
-        <?php
-        if (!empty($user)): ?>
-            <p class="navbar-brand align-middle">
-                Welcome
-                <?= $user['username']; ?>
-            </p>
-        <?php endif;
-        ?>
-
-        <a href="../signup-login/logout.php" class="navbar-brand border border-light p-2">
-            Logout
-        </a>
-
-    </div>
-</nav>
-
-<?php include('../partials/selecting_categories.php') ?>
-
-
 <main class="container p-4 border border-secondary mt-2">
+    <ul class="nav nav-pills">
+        <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true"
+                aria-expanded="false">Seleccionar lista de compras</a>
+            <div class="dropdown-menu">
+                <?php
+                $actual_id = $_SESSION['user_id'];
+                // username , nombre_lista, descrip_lista_compras, nombre_producto, precio
+                $query = "SELECT nombre_lista 
+            FROM lista_compras
+            WHERE idusuario = '$actual_id'";
+                $result_tasks = mysqli_query($conn, $query);
+                while ($row = mysqli_fetch_assoc($result_tasks)) { ?>
+                    <a class="dropdown-item"
+                        href="/crud_app/views/products_by_shoppinglist.php?nombre_lista=<?php echo $row['nombre_lista']; ?>">
+                        <?php echo $row['nombre_lista']; ?>
+                    </a>
+
+                <?php } ?>
+
+            </div>
+        </li>
+    </ul>
+
 
     <div class="row">
         <div class="col-md-4">
@@ -51,46 +52,44 @@ require '../database/database.php';
             <div class="card card-body">
                 <form action="./crud_operations/save_shopping_list.php" method="POST">
                     <div class="form-group">
-                        <input type="text" name="nameSL" class="form-control" placeholder="Nombre Producto" autofocus>
+                        <input type="text" name="nameSL" class="form-control" placeholder="Nombre Lista de compras"
+                            autofocus>
                     </div>
                     <div class="form-group">
-                        <input name="descriptionSL" rows="2" class="form-control" placeholder="Precio Producto"></input>
+                        <textarea name="descriptionSL" rows="2" class="form-control"
+                            placeholder="Description Lista de compras"></textarea>
                     </div>
-                    <input type="submit" name="save_SL" class="btn btn-success btn-block" value="Add product">
+                    <input type="submit" name="save_SL" class="btn btn-success btn-block" value="Add Shopping List">
                 </form>
             </div>
-        </div>
 
+
+        </div>
         <div class="col-md-8">
-            <h2> Listas de compras
-                <?php echo $shopping_list_slected ?>
-            </h2>
+            <h2>Listas de compras</h2>
             <table class="table table-bordered">
                 <thead>
                     <tr>
+                        <th>Id Lista de compras</th>
+                        <th>Name </th>
+                        <th>Description</th>
                         <th>Usuario</th>
-                        <th>Nombre Lista </th>
-                        <th>Description Lista</th>
-                        <th>nombre_producto</th>
-                        <th>precio Producto</th>
+                        <th>Action</th>
                     </tr>
                 </thead>
                 <tbody>
                     <?php
                     $actual_id = $_SESSION['user_id'];
-                    // username , nombre_lista, descrip_lista_compras, nombre_producto, precio
-                    $query = "SELECT * 
-                     FROM usuarios
-                    INNER JOIN lista_compras ON lista_compras.idusuario = usuarios.id_usuario 
-                     JOIN productos on productos.id_listacompras = lista_compras.id_lista_compras
-                    WHERE idusuario = '$actual_id' and nombre_lista = '$shopping_list_slected' ";
+                    // $query = "SELECT * FROM lista_compras WHERE idusuario = '$actual_id'";
+                    // $query = "SELECT id_lista_compras, nombre_lista, descrip_lista_compras, username FROM usuarios inner join lista_compras on lista_compras.idusuario = usuarios.id_usuario WHERE idusuario = '$actual_id'";
+                    $query = "SELECT id_lista_compras, nombre_lista, descrip_lista_compras, username FROM usuarios INNER JOIN lista_compras ON lista_compras.idusuario = usuarios.id_usuario WHERE idusuario = '$actual_id'";
 
                     $result_tasks = mysqli_query($conn, $query);
 
                     while ($row = mysqli_fetch_assoc($result_tasks)) { ?>
                         <tr>
                             <td>
-                                <?php echo $row['username']; ?>
+                                <?php echo $row['id_lista_compras']; ?>
                             </td>
                             <td>
                                 <?php echo $row['nombre_lista']; ?>
@@ -99,10 +98,7 @@ require '../database/database.php';
                                 <?php echo $row['descrip_lista_compras']; ?>
                             </td>
                             <td>
-                                <?php echo $row['nombre_producto']; ?>
-                            </td>
-                            <td>
-                                <?php echo $row['precio']; ?>
+                                <?php echo $row['username']; ?>
                             </td>
                             <td class='d-flex '>
                                 <a href="./crud_operations/edit_shopping_list.php?id_lista_compras=<?php echo $row['id_lista_compras'] ?>"
@@ -119,9 +115,5 @@ require '../database/database.php';
                 </tbody>
             </table>
         </div>
-
     </div>
-
 </main>
-
-<?php include('../partials/footer.php') ?>

@@ -42,4 +42,5 @@ if (isset($_SESSION['user_id'])) {
 
 <?php include('./views/shoppinglist.php') ?>
 
+
 <?php include('./partials/footer.php') ?>

@@ -1,10 +1,6 @@
 <?php
-session_start();
-require '../database/database.php';
 $shopping_list_slected = '';
-
 if (isset($_GET['nombre_lista'])) {
-
     $shopping_list_slected = $_GET['nombre_lista'];
 }
 
