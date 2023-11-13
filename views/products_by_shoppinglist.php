@@ -3,7 +3,10 @@ session_start();
 require '../database/database.php';
 ?>
 
+
 <?php
+// unset($_SESSION['shopping_list_slected']);
+// unset($_SESSION['id_shopping_list_slected']);
 
 $shopping_list_slected = '';
 if (isset($_GET['nombre_lista'])) {
@@ -11,9 +14,6 @@ if (isset($_GET['nombre_lista'])) {
     $_SESSION['shopping_list_slected'] = $shopping_list_slected;
     $id_shopping_list_slected = $_GET['id_lista'];
     $_SESSION['id_shopping_list_slected'] = $id_shopping_list_slected;
-
-    echo  $_SESSION['shopping_list_slected'];
-    echo  $_SESSION['id_shopping_list_slected'];
 }
 
 ?>
@@ -125,11 +125,11 @@ if (isset($_GET['nombre_lista'])) {
                                 <?php echo $row['precio']; ?>
                             </td>
                             <td class='d-flex '>
-                                <a href="../crud_operations/product/edit_product.php?id_lista_compras=<?php echo $row['id_lista_compras'] ?>"
+                                <a href="../crud_operations/product/edit_product.php?id_pruducto=<?php echo $row['id_producto'] ?>"
                                     class="btn btn-secondary btn-sm">
                                     <i class="fa-solid fa-pen-to-square "></i>
                                 </a>
-                                <a href="../crud_operations/product/delete_product.php ?id_lista_compras=<?php echo $row['id_lista_compras'] ?>"
+                                <a href="../crud_operations/product/delete_product.php ?id_pruducto=<?php echo $row['id_producto'] ?>"
                                     class="btn btn-danger btn-sm">
                                     <i class="fa-sharp fa-solid fa-trash "></i>
                                 </a>
