@@ -1,6 +1,6 @@
 <?php
 
-include('../../database/database.php');
+include('../database/database.php');
 session_start();
 
 if(isset($_GET['id_lista_compras'])) {

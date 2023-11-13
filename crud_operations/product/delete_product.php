@@ -1,20 +1,21 @@
 <?php
 
-include('../database/database.php');
+include('../../database/database.php');
 session_start();
 
-if(isset($_GET['id_lista_compras'])) {
+if(isset($_GET['id_pruducto'])) {
 
-  $id_lista_compras = $_GET['id_lista_compras'];
-  $query = "DELETE FROM lista_compras WHERE id_lista_compras = $id_lista_compras";
+  $id_pruducto = $_GET['id_pruducto'];
+  $query = "DELETE FROM productos WHERE id_producto = $id_pruducto";
   $result = mysqli_query($conn, $query);
   if(!$result) {
     die("Query Failed.");
   }
 
-  $_SESSION['message'] = 'Task Removed Successfully';
+  $_SESSION['message'] = 'Product Removed Successfully';
   $_SESSION['message_type'] = 'warning';
-  header("Location: /crud_app/home.php");
+  header('Location: /crud_app/views/products_by_shoppinglist.php');
+
 
 }
 
