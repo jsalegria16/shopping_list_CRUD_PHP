@@ -51,6 +51,8 @@ if (isset($_SESSION['user_id'])) {
           </button>
         </div>
         <?php
+        unset($_SESSION['message']);
+        unset($_SESSION['message_type']);
       } ?>
 
 
@@ -100,7 +102,7 @@ if (isset($_SESSION['user_id'])) {
               <td>
                 <?php echo $row['idusuario']; ?>
               </td>
-              <td>
+              <td class='d-flex '>
                 <a href="./crud_operations/edit_shopping_list.php?id_lista_compras=<?php echo $row['id_lista_compras'] ?>" class="btn btn-secondary btn-sm">
                   <i class="fa-solid fa-pen-to-square fa-2xs"></i>
                 </a>

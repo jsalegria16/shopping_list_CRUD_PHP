@@ -1,7 +1,7 @@
 <?php
 
 include('../database/database.php');
-
+session_start();
 
 if(isset($_GET['id_lista_compras'])) {
 
@@ -13,7 +13,7 @@ if(isset($_GET['id_lista_compras'])) {
   }
 
   $_SESSION['message'] = 'Task Removed Successfully';
-  $_SESSION['message_type'] = 'danger';
+  $_SESSION['message_type'] = 'warning';
   header("Location: /crud_app/home.php");
 
 }
