@@ -1,3 +1,6 @@
+
+
+
 <?php
 
 require './database/database.php';
@@ -32,13 +35,30 @@ if (!empty($user)): ?>
     Logout
   </a>
 <?php else: ?>
-  <div></div>
-  <h1>Please Login or SignUp</h1>
-  <a href="./signup-login/login.php">Login</a> or
-  <a href="./signup-login/signup.php">SignUp</a>
+  <!-- <h1>Please Login or SignUp</h1> -->
+  <!-- <a href="./signup-login/login.php">Login</a> or
+  <a href="./signup-login/signup.php">SignUp</a> -->
   </div>
 <?php endif;
 ?>
 
+<div class="container-fluid">
+  
+  <!-- Pills navs -->
+  <h1>Please Login or SignUp</h1>
+  <ul class="nav nav-pills nav-justified mb-3" id="ex1" role="tablist">
+    <li class="nav-item" role="presentation">
+      <a class="nav-link border border-primary" id="tab-login" data-mdb-toggle="pill" href="./signup-login/login.php" role="tab"
+        aria-controls="pills-login" aria-selected="true">Login</a>
+    </li>
+    <li class="nav-item" role="presentation">
+      <a class="nav-link border border-secundary ml-5" id="tab-register" data-mdb-toggle="pill" href="./signup-login/signup.php" role="tab"
+        aria-controls="pills-register" aria-selected="false">Register</a>
+    </li>
+  </ul>
+  <!-- Pills navs -->
+
+  
+</div>
 
 <?php include('./partials/footer.php') ?>

@@ -64,6 +64,10 @@ if (isset($_GET['nombre_lista'])) {
 
             <!-- ADD TASK FORM -->
             <div class="card card-body">
+                <h6> Agregar Producto a:  <strong>
+                        <?php echo $shopping_list_slected ?>
+                    </strong>
+                </h6>
                 <form action="../crud_operations/product/save_product.php " method="POST">
                     <div class="form-group">
                         <input type="text" name="nameSL" class="form-control" placeholder="Nombre Producto" autofocus>
@@ -77,8 +81,10 @@ if (isset($_GET['nombre_lista'])) {
         </div>
 
         <div class="col-md-8">
-            <h2> Lista de compras
-                <?php echo $shopping_list_slected ?>
+            <h2> Lista de compras: 
+                <strong>
+                    <?php echo $shopping_list_slected ?>
+                </strong>
             </h2>
             <table class="table table-bordered">
                 <thead>

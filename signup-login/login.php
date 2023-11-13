@@ -38,6 +38,25 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
 <?php include('../partials/header.php') ?>
 
+<div class="container-fluid">
+  
+  <!-- Pills navs -->
+  <ul class="nav nav-pills nav-justified mb-3 mt-5" id="ex1" role="tablist">
+    <li class="nav-item " role="presentation">
+      <a class="nav-link active border border-primary" id="tab-login" data-mdb-toggle="pill" href="./login.php" role="tab"
+        aria-controls="pills-login" aria-selected="true">Login</a>
+    </li>
+    <li class="nav-item" role="presentation">
+      <a class="nav-link  border border-secundary ml-5" id="tab-register" data-mdb-toggle="pill" href="./signup.php" role="tab"
+        aria-controls="pills-register" aria-selected="false">Register</a>
+    </li>
+  </ul>
+  <!-- Pills navs -->
+
+  
+</div>
+
+
 <div class="container mt-5">
   <div class="row mb-4">
     <div class="col-md-6 mx-auto text-center">

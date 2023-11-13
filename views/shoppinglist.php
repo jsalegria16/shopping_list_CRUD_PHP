@@ -1,4 +1,3 @@
-
 <main class="container p-4 border border-secondary mt-2">
 
   <div class="row">
@@ -19,6 +18,8 @@
 
       <!-- ADD TASK FORM -->
       <div class="card card-body">
+        <h6> Agregar Lista de compras
+        </h6>
         <form action="./crud_operations/shoppinglist/save_shopping_list.php" method="POST">
           <div class="form-group">
             <input type="text" name="nameSL" class="form-control" placeholder="Nombre Lista de compras" autofocus>
