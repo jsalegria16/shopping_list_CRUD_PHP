@@ -3,6 +3,21 @@ session_start();
 require '../database/database.php';
 ?>
 
+<?php
+
+$shopping_list_slected = '';
+if (isset($_GET['nombre_lista'])) {
+    $shopping_list_slected = $_GET['nombre_lista'];
+    $_SESSION['shopping_list_slected'] = $shopping_list_slected;
+    $id_shopping_list_slected = $_GET['id_lista'];
+    $_SESSION['id_shopping_list_slected'] = $id_shopping_list_slected;
+
+    echo  $_SESSION['shopping_list_slected'];
+    echo  $_SESSION['id_shopping_list_slected'];
+}
+
+?>
+
 <?php include('../partials/header.php') ?>
 
 <nav class="navbar navbar-dark bg-dark">
@@ -29,10 +44,10 @@ require '../database/database.php';
 <?php include('../partials/selecting_categories.php') ?>
 
 
-<main class="container p-4 border border-secondary mt-2">
+<main class="container-fluid  p-4 border border-secondary">
 
     <div class="row">
-        <div class="col-md-4">
+        <div class="col-md-3">
             <!-- Mensajes de alerta  -->
             <?php if (isset($_SESSION['message'])) { ?>
                 <div class="alert alert-<?= $_SESSION['message_type'] ?> alert-dismissible fade show" role="alert">
@@ -49,12 +64,12 @@ require '../database/database.php';
 
             <!-- ADD TASK FORM -->
             <div class="card card-body">
-                <form action="./crud_operations/save_shopping_list.php" method="POST">
+                <form action="../crud_operations/product/save_product.php " method="POST">
                     <div class="form-group">
                         <input type="text" name="nameSL" class="form-control" placeholder="Nombre Producto" autofocus>
                     </div>
                     <div class="form-group">
-                        <input name="descriptionSL" rows="2" class="form-control" placeholder="Precio Producto"></input>
+                        <input name="precio" rows="2" class="form-control" placeholder="Precio Producto"></input>
                     </div>
                     <input type="submit" name="save_SL" class="btn btn-success btn-block" value="Add product">
                 </form>
@@ -62,17 +77,19 @@ require '../database/database.php';
         </div>
 
         <div class="col-md-8">
-            <h2> Listas de compras
+            <h2> Lista de compras
                 <?php echo $shopping_list_slected ?>
             </h2>
             <table class="table table-bordered">
                 <thead>
                     <tr>
+                        <th>Id producto</th>
                         <th>Usuario</th>
                         <th>Nombre Lista </th>
                         <th>Description Lista</th>
                         <th>nombre_producto</th>
                         <th>precio Producto</th>
+                        <th>Actions</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -90,6 +107,9 @@ require '../database/database.php';
                     while ($row = mysqli_fetch_assoc($result_tasks)) { ?>
                         <tr>
                             <td>
+                                <?php echo $row['id_producto']; ?>
+                            </td>
+                            <td>
                                 <?php echo $row['username']; ?>
                             </td>
                             <td>
@@ -105,13 +125,13 @@ require '../database/database.php';
                                 <?php echo $row['precio']; ?>
                             </td>
                             <td class='d-flex '>
-                                <a href="./crud_operations/edit_shopping_list.php?id_lista_compras=<?php echo $row['id_lista_compras'] ?>"
+                                <a href="../crud_operations/product/edit_product.php?id_lista_compras=<?php echo $row['id_lista_compras'] ?>"
                                     class="btn btn-secondary btn-sm">
-                                    <i class="fa-solid fa-pen-to-square fa-2xs"></i>
+                                    <i class="fa-solid fa-pen-to-square "></i>
                                 </a>
-                                <a href="./crud_operations/delete_shopping_list.php?id_lista_compras=<?php echo $row['id_lista_compras'] ?>"
+                                <a href="../crud_operations/product/delete_product.php ?id_lista_compras=<?php echo $row['id_lista_compras'] ?>"
                                     class="btn btn-danger btn-sm">
-                                    <i class="fa-sharp fa-solid fa-trash fa-2xs"></i>
+                                    <i class="fa-sharp fa-solid fa-trash "></i>
                                 </a>
                             </td>
                         </tr>

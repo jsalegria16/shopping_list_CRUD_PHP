@@ -1,37 +1,51 @@
 <?php
 
 session_start();
-require '../database/database.php';
+require '../../database/database.php';
 $message = '';
 
-if (isset($_POST['save_SL'])) {
 
-  // Verificar campos vacíos
-  if (empty($_POST['nameSL']) || empty($_POST['descriptionSL'])) {
-    $message = 'Both username and password are required';
-    $_SESSION['message'] = 'Both fields are required';
-    $_SESSION['message_type'] = 'warning';
-    header('Location: /crud_app/home.php');
-  } else {
-    echo $_POST['nameSL'];
-    echo $_POST['descriptionSL'];
-    echo $_SESSION['user_id'];
-    $nombreSL = $_POST['nameSL'];
-    $DescriSL = $_POST['descriptionSL'];
-    $userId = $_SESSION['user_id'];
-    $query = "INSERT INTO lista_compras(nombre_lista,idusuario,descrip_lista_compras) VALUES('$nombreSL',' $userId ','$DescriSL')";
-    $result = mysqli_query($conn, $query);
+if (isset($_SESSION['shopping_list_slected'])) {
+  echo $_SESSION['shopping_list_slected'];
+  if (isset($_POST['save_SL'])) {
 
-    if (!$result) {
-      die("Query Failed.");
+    // Verificar campos vacíos
+    if (empty($_POST['nameSL']) || empty($_POST['precio'])) {
+      $message = 'Both username and password are required';
+      $_SESSION['message'] = 'Both fields are required';
+      $_SESSION['message_type'] = 'warning';
+      header('Location: /crud_app/views/products_by_shoppinglist.php');
+    } else {
+
+      $nombreSL = $_POST['nameSL'];
+      $precio = $_POST['precio'];
+      $shoppingListId = $_SESSION['id_shopping_list_slected'];
+      $query = "INSERT INTO productos(nombre_producto,precio,id_listacompras) VALUES('$nombreSL',' $precio ','$shoppingListId')";
+      $result = mysqli_query($conn, $query);
+
+      if (!$result) {
+        die("Query Failed.");
+      }
+
+      $_SESSION['message'] = 'Product List Saved Successfully in ' . $_SESSION['shopping_list_slected'];
+      $_SESSION['message_type'] = 'success';
+      unset($_SESSION['shopping_list_slected']);
+      unset($_SESSION['id_shopping_list_slected']);
+      header('Location: /crud_app/views/products_by_shoppinglist.php');
+
     }
-
-    $_SESSION['message'] = 'Shopping List Saved Successfully';
-    $_SESSION['message_type'] = 'success';
-    header('Location: /crud_app/home.php');
-
   }
+} else {
+  $_SESSION['message'] = 'Please select a shopping list';
+  $_SESSION['message_type'] = 'success';
+  unset($_SESSION['shopping_list_slected']);
+  unset($_SESSION['id_shopping_list_slected']);
+  header('Location: /crud_app/views/products_by_shoppinglist.php');
 
 }
 
+
+
+
+// echo $_SESSION['shopping_list_slected'].'jejej';
 ?>
