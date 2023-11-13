@@ -1,66 +1,65 @@
 <?php
-  require '../database/database.php';
+require '../database/database.php';
 
-  $message = '';
+$message = '';
 
-  if (!empty($_POST['username']) && !empty($_POST['password'])) {
-    
-    // $sql = "INSERT INTO usuarios (username, clave) VALUES (:Myusuario, :Myclave)";
-    // $stmt = $conn->prepare($sql);
-    // $stmt->bindParam(':Myusuario', $_POST['username']);
-    // $password = password_hash($_POST['password'], PASSWORD_BCRYPT);
-    // $stmt->bindParam(':Myclave', $password);
-
-    // if ($stmt->execute()) {
-    //   $message = 'Successfully created new user';
-    // } else {
-    //   $message = 'Sorry there must have been an issue creating your account';
-    // }
-
+if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+  // Verificar campos vacíos
+  if (empty($_POST['username']) || empty($_POST['password'])) {
+    $message = 'Por favor, completa todos los campos.';
+  } else {
+    // Procesar datos solo si no hay campos vacíos
     $Mpassword = password_hash($_POST['password'], PASSWORD_BCRYPT);
     $Myusuario = $_POST['username'];
     $query = "INSERT INTO usuarios (username, clave) VALUES ('$Myusuario','$Mpassword')";
     $result = mysqli_query($conn, $query);
-    if(!$result) {
+    if (!$result) {
       die("Query Failed.");
-    }else{
-      $message = 'Successfully created new user';
+    } else {
+      $message = 'Usuario creado exitosamente';
     }
-
-
-  }else{
-    $message = 'Campos vacios!';
   }
-
+}
 ?>
 
 
-<!DOCTYPE html>
-<html>
-  <head>
-    <meta charset="utf-8">
-    <title>SignUp</title>
-    <link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet">
-    <link rel="stylesheet" href="../assets/css/style.css">
-  </head>
-  <body>
+<?php include('../partials/header.php') ?>
 
-    <?php require '../partials/header.php' ?>
+  <?php require '../partials/header.php' ?>
 
-    <?php if(!empty($message)): ?>
-      <p> <?= $message ?></p>
-    <?php endif; ?>
+  <div class="container mt-5">
+    <div class="row mb-4">
+      <div class="col-md-6 mx-auto text-center">
+        <?php if (!empty($message)): ?>
+          <p>
+            <?= $message ?>
+          </p>
+        <?php endif; ?>
+        <h1>SignUp</h1>
+        <span>or <a href="login.php">Login</a></span>
+      </div>
+    </div>
 
-    <h1>SignUp</h1>
-    <span>or <a href="login.php">Login</a></span>
+    <div class="row">
+      <div class="col-md-6 mx-auto text-center">
+        <form class="w-100" action="signup.php" method="POST" novalidate>
+          <!-- Username input -->
+          <div class="mb-4">
+            <input name="username" class="form-control" type="text" placeholder="Enter your username" required>
+          </div>
 
-    <form action="signup.php" method="POST">
-      <input name="username" type="text" placeholder="Enter your email">
-      <input name="password" type="password" placeholder="Enter your Password">
-      <input name="confirm_password" type="password" placeholder="Confirm Password">
-      <input type="submit" value="Submit">
-    </form>
+          <!-- Password input -->
+          <div class="form-outline mb-4">
+            <input name="password" class="form-control" type="password" placeholder="Enter your Password" required>
+
+          </div>
+
+          <!-- Submit button -->
+          <input class="btn btn-primary btn-block mb-4" type="submit" value="signup">
+        </form>
+      </div>
+    </div>
+  </div>
 
 
-  </body>
-</html>
+  <?php include('../partials/footer.php') ?>
