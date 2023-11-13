@@ -9,7 +9,7 @@ $description = '';
 if (isset($_GET['id_lista_compras'])) {
 
   $id = $_GET['id_lista_compras'];
-  
+  $_SESSION['id_lista_compras'] = $id;
   $query = "SELECT * FROM lista_compras WHERE id_lista_compras=$id";
   $result = mysqli_query($conn, $query);
   if (mysqli_num_rows($result) == 1) {
