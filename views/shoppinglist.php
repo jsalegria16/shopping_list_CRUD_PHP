@@ -34,6 +34,8 @@
 
 
     </div>
+
+
     <div class="col-md-8">
       <h2>Listas de compras</h2>
       <table class="table table-bordered">
@@ -49,9 +51,9 @@
         <tbody>
           <?php
           $actual_id = $_SESSION['user_id'];
-          // $query = "SELECT * FROM lista_compras WHERE idusuario = '$actual_id'";
-          // $query = "SELECT id_lista_compras, nombre_lista, descrip_lista_compras, username FROM usuarios inner join lista_compras on lista_compras.idusuario = usuarios.id_usuario WHERE idusuario = '$actual_id'";
-          $query = "SELECT id_lista_compras, nombre_lista, descrip_lista_compras, username FROM usuarios INNER JOIN lista_compras ON lista_compras.idusuario = usuarios.id_usuario WHERE idusuario = '$actual_id'";
+          $query = "SELECT id_lista_compras, nombre_lista, descrip_lista_compras, username 
+          FROM usuarios 
+          INNER JOIN lista_compras ON lista_compras.idusuario = usuarios.id_usuario WHERE idusuario = '$actual_id'";
 
           $result_tasks = mysqli_query($conn, $query);
 

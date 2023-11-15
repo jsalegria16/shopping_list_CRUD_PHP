@@ -5,7 +5,6 @@
         <div class="dropdown-menu">
             <?php
             $actual_id = $_SESSION['user_id'];
-            // username , nombre_lista, descrip_lista_compras, nombre_producto, precio
             $query = "SELECT *
             FROM lista_compras
             WHERE idusuario = '$actual_id'";

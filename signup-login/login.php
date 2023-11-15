@@ -11,7 +11,7 @@ if (isset($_SESSION['user_id'])) {
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
   // Verificar campos vacíos
   if (empty($_POST['username']) || empty($_POST['password'])) {
-    $message = 'Both username and password are required';
+    $message = 'Por favor, completa todos los campos.';
   } else {
     $Mpassword = password_hash($_POST['password'], PASSWORD_BCRYPT);
     $Myusuario = $_POST['username'];
@@ -28,7 +28,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $message = 'Sorry, those credentials do not match';
       }
     } else {
-      $message = 'Invalid username';
+      $message = 'Credenciales incorrectas';
     }
   }
 }
@@ -66,7 +66,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
           </p>
         <?php endif; ?>
         <h1>Login</h1>
-        <span>or <a href="signup.php">SignUp</a></span>
+        <span>or <a href="./signup.php">SignUp</a></span>
     </div>
   </div>
 

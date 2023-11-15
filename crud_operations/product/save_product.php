@@ -6,7 +6,7 @@ $message = '';
 
 
 if (isset($_SESSION['shopping_list_slected'])) {
-  echo $_SESSION['shopping_list_slected'];
+
   if (isset($_POST['save_SL'])) {
 
     // Verificar campos vacíos
@@ -19,19 +19,31 @@ if (isset($_SESSION['shopping_list_slected'])) {
 
       $nombreSL = $_POST['nameSL'];
       $precio = $_POST['precio'];
-      $shoppingListId = $_SESSION['id_shopping_list_slected'];
-      $query = "INSERT INTO productos(nombre_producto,precio,id_listacompras) VALUES('$nombreSL',' $precio ','$shoppingListId')";
-      $result = mysqli_query($conn, $query);
 
-      if (!$result) {
-        die("Query Failed.");
+      if (is_numeric($precio)) {
+        $shoppingListId = $_SESSION['id_shopping_list_slected'];
+        $query = "INSERT INTO productos(nombre_producto,precio,id_listacompras) VALUES('$nombreSL',' $precio ','$shoppingListId')";
+        $result = mysqli_query($conn, $query);
+
+        if (!$result) {
+          die("Query Failed.");
+        }
+
+        $_SESSION['message'] = 'Producto guardado exitosamente en <strong>' . $_SESSION['shopping_list_slected']. ' </strong>';
+        $_SESSION['message_type'] = 'success';
+        unset($_SESSION['shopping_list_slected']);
+        unset($_SESSION['id_shopping_list_slected']);
+        header('Location: /crud_app/views/products_by_shoppinglist.php');
+
+
+      } else {
+        $_SESSION['message'] = 'Necesitas un valor numérico';
+        $_SESSION['message_type'] = 'success';
+        unset($_SESSION['shopping_list_slected']);
+        unset($_SESSION['id_shopping_list_slected']);
+        header('Location: /crud_app/views/products_by_shoppinglist.php');
       }
 
-      $_SESSION['message'] = 'Product List Saved Successfully in ' . $_SESSION['shopping_list_slected'];
-      $_SESSION['message_type'] = 'success';
-      unset($_SESSION['shopping_list_slected']);
-      unset($_SESSION['id_shopping_list_slected']);
-      header('Location: /crud_app/views/products_by_shoppinglist.php');
 
     }
   }

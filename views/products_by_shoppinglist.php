@@ -3,10 +3,7 @@ session_start();
 require '../database/database.php';
 ?>
 
-
 <?php
-// unset($_SESSION['shopping_list_slected']);
-// unset($_SESSION['id_shopping_list_slected']);
 
 $shopping_list_slected = '';
 if (isset($_GET['nombre_lista'])) {
@@ -23,7 +20,8 @@ if (isset($_GET['nombre_lista'])) {
 <nav class="navbar navbar-dark bg-dark">
     <div class="container">
         <a class="navbar-brand" href="../index.php">Listas De compras</a>
-        <a class="navbar-brand" href="products_by_shoppinglist.php">Products by shopping list</a>
+        <a class="navbar-brand" href="products_by_shoppinglist.php">Productos por lista de compras</a>
+
 
         <?php
         if (!empty($user)): ?>
@@ -34,7 +32,7 @@ if (isset($_GET['nombre_lista'])) {
         <?php endif;
         ?>
 
-        <a href="../signup-login/logout.php" class="navbar-brand border border-light p-2">
+        <a href="../signup-login/logout.php" class="p-2 btn btn-light"">
             Logout
         </a>
 
@@ -64,7 +62,7 @@ if (isset($_GET['nombre_lista'])) {
 
             <!-- ADD TASK FORM -->
             <div class="card card-body">
-                <h6> Agregar Producto a:  <strong>
+                <h6> Agregar Producto a: <strong>
                         <?php echo $shopping_list_slected ?>
                     </strong>
                 </h6>
@@ -81,7 +79,7 @@ if (isset($_GET['nombre_lista'])) {
         </div>
 
         <div class="col-md-8">
-            <h2> Lista de compras: 
+            <h2> Lista de compras:
                 <strong>
                     <?php echo $shopping_list_slected ?>
                 </strong>
@@ -101,7 +99,6 @@ if (isset($_GET['nombre_lista'])) {
                 <tbody>
                     <?php
                     $actual_id = $_SESSION['user_id'];
-                    // username , nombre_lista, descrip_lista_compras, nombre_producto, precio
                     $query = "SELECT * 
                      FROM usuarios
                     INNER JOIN lista_compras ON lista_compras.idusuario = usuarios.id_usuario 

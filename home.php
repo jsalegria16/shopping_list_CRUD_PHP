@@ -22,20 +22,23 @@ if (isset($_SESSION['user_id'])) {
 <nav class="navbar navbar-dark bg-dark">
   <div class="container">
     <a class="navbar-brand" href="index.php">Listas de Compras</a>
-    <a class="navbar-brand" href="./views/products_by_shoppinglist.php">Products by shopping list</a>
+    <a class="navbar-brand" href="./views/products_by_shoppinglist.php">Productos por lista de compras</a>
 
-    <?php
-    if (!empty($user)): ?>
-      <p class="navbar-brand align-middle">
-        Welcome
-        <?= $user['username']; ?>
-      </p>
-    <?php endif;
-    ?>
+    <div class="d-flex align-items-start">
+      <?php if (!empty($user)): ?>
+        <p class="navbar-brand align-middle">
+          Bienvenido
+          <strong>
+            <?= $user['username']; ?>
+          </strong>
+        </p>
+      <?php endif; ?>
 
-    <a href="./signup-login/logout.php" class="navbar-brand border border-light p-2">
-      Logout
-    </a>
+      <a href="./signup-login/logout.php" class="p-2 btn btn-light">
+        Logout
+      </a>
+    </div>
+
 
   </div>
 </nav>

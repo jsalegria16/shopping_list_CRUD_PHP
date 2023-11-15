@@ -13,9 +13,6 @@ if (isset($_POST['save_SL'])) {
     $_SESSION['message_type'] = 'warning';
     header('Location: /crud_app/home.php');
   } else {
-    echo $_POST['nameSL'];
-    echo $_POST['descriptionSL'];
-    echo $_SESSION['user_id'];
     $nombreSL = $_POST['nameSL'];
     $DescriSL = $_POST['descriptionSL'];
     $userId = $_SESSION['user_id'];

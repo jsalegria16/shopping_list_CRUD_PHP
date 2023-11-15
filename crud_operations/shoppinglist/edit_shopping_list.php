@@ -31,9 +31,6 @@ if (isset($_POST['update'])) {
     $nombreSL = $_POST['title'];
     $DescriSL = $_POST['description'];
     $id_lista_compras = $_SESSION['id_lista_compras'];
-    // echo $nombreSL;
-    // echo $DescriSL;
-    echo $id_lista_compras . '<br>';
     $query = "UPDATE lista_compras SET nombre_lista = '$nombreSL', descrip_lista_compras = '$DescriSL' WHERE id_lista_compras ='$id_lista_compras'";
     $result = mysqli_query($conn, $query);
 
